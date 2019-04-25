@@ -60,16 +60,14 @@ function validateSummary() {
 // Sum the values of input elements belonging to the sumClass class of elements 
 function calcClass(sumClass) {
       // Contains the object collection of all elements belonging to the sumClass class 
-      var sumFields = document.querySelectorAll(".sumClass");
-
+      var sumFields = document.getElementsByClassName(sumClass);
       // Will be used to keep a running total of the total values in the input elements in the sumFields object collection 
       var sumTotal = 0;
-
       // Loops through the sumFields collection 
       for (var i = 0; i < sumFields.length; i++) {
-            // what is going on here 
-            if (isNaN(parseFloat(sumFields[i])) === true) {
-                  var itemValue = parseFloat(sumFields[i]);
+            var itemValue = parseFloat(sumFields[i].value);
+            if (isNaN(itemValue) === false) {
+                  sumTotal += itemValue;
             }
       }
 
@@ -85,7 +83,7 @@ function calcExp() {
       // Loops through the rows in the expTable collection 
       for (var i = 0; i < expTable.length; i++) {
             // Sets the value of the input element to the value returned by the calcClass funtion using a parameter value 
-            document.getElementById("subTotal" + [i]) = formatNumber(calcClass("date" + [i]), 2);
+            document.getElementById("subtotal" + i).value = formatNumber(calcClass("date" + i), 2);
       }
 
       // Sets the values of input elements by calling the calcClass() function using parameter values 
@@ -95,7 +93,7 @@ function calcExp() {
       document.getElementById("otherTotal").value = formatNumber(calcClass("other"), 2);
 
       // Sets the value of an input element returned by the calcClass() function 
-      document.getElementById("expTotal") = formatUSCurrency(calcClass("sum"));
+      document.getElementById("expTotal").value = formatUSCurrency(calcClass("sum"), 2);
 }
 
 
